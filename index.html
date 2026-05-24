@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>初夏英倫慢旅行｜2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --navy:#17233d;
+      --blue:#2f6fb3;
+      --sky:#eaf4ff;
+      --cream:#fff8ef;
+      --rose:#c96f6f;
+      --green:#5f7f68;
+      --bg:#f6f3ee;
+      --card:#ffffff;
+      --text:#2f3440;
+      --muted:#747b89;
+      --line:#e8e2d8;
+      --shadow:0 10px 28px rgba(23,35,61,.10);
+      --radius:22px;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.75;
+      padding-bottom:32px;
+    }
+
+    a { color:inherit; text-decoration:none; }
+    img { display:block; width:100%; }
+
+    .app-header {
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(23,35,61,.96);
+      color:white;
+      padding:18px 18px 14px;
+      box-shadow:0 6px 20px rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+    }
+    .app-header h1 { font-size:1.2rem; letter-spacing:.03em; font-weight:900; }
+    .app-header p { font-size:.82rem; opacity:.82; margin-top:2px; }
+
+    .day-nav {
+      position:sticky;
+      top:72px;
+      z-index:45;
+      display:flex;
+      overflow-x:auto;
+      gap:8px;
+      padding:10px 12px;
+      background:rgba(246,243,238,.94);
+      border-bottom:1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .day-nav::-webkit-scrollbar { display:none; }
+    .day-tab {
+      flex:0 0 auto;
+      border:1px solid var(--line);
+      background:white;
+      color:var(--navy);
+      border-radius:999px;
+      padding:8px 13px;
+      font-size:.84rem;
+      font-weight:700;
+      box-shadow:0 3px 10px rgba(23,35,61,.04);
+    }
+    .day-tab.active { background:var(--navy); color:white; border-color:var(--navy); }
+
+    .container { max-width:780px; margin:0 auto; padding:14px; }
+    .day-content { display:none; animation:fadeIn .22s ease; }
+    .day-content.active { display:block; }
+    @keyframes fadeIn { from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:translateY(0)} }
+
+    .hero {
+      overflow:hidden;
+      border-radius:28px;
+      background:var(--card);
+      box-shadow:var(--shadow);
+      margin:6px 0 16px;
+      border:1px solid rgba(255,255,255,.7);
+    }
+    .hero-img {
+      height:245px;
+      object-fit:cover;
+      background:#ddd;
+    }
+    .hero-body { padding:18px; }
+    .eyebrow { color:var(--rose); font-weight:900; font-size:.82rem; letter-spacing:.06em; margin-bottom:5px; }
+    .hero h2 { color:var(--navy); font-size:1.45rem; line-height:1.3; margin-bottom:10px; }
+    .intro { color:#4b5565; font-size:.97rem; }
+
+    .section-title {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin:22px 4px 10px;
+      color:var(--navy);
+      font-size:1.06rem;
+      font-weight:900;
+    }
+    .section-title i { color:var(--rose); }
+
+    .info-card, .meal-card, .hotel-card {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin-bottom:12px;
+    }
+
+    .tips-card {
+      background:var(--cream);
+      border:1px solid #f0d5b8;
+      border-left:5px solid #d9904d;
+      border-radius:18px;
+      padding:14px;
+      margin-bottom:12px;
+      color:#6f421f;
+      font-size:.92rem;
+    }
+    .tips-card strong { color:#5c3518; }
+    .guide-link {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      margin-top:12px;
+      padding:10px 13px;
+      border-radius:999px;
+      background:#d9904d;
+      color:white;
+      font-weight:800;
+      font-size:.88rem;
+      border:0;
+      cursor:pointer;
+    }
+    .guide-url {
+      display:block;
+      margin-top:10px;
+      padding:10px 12px;
+      background:rgba(255,255,255,.65);
+      border:1px dashed #d9904d;
+      border-radius:12px;
+      color:#6f421f;
+      font-size:.82rem;
+      line-height:1.45;
+      word-break:break-all;
+    }
+
+    .meal-grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .meal-row {
+      display:grid;
+      grid-template-columns:74px 1fr;
+      gap:10px;
+      align-items:start;
+      padding:10px 0;
+      border-bottom:1px dashed var(--line);
+    }
+    .meal-row:last-child { border-bottom:0; }
+    .meal-label { color:var(--green); font-weight:900; font-size:.9rem; }
+    .meal-place { font-weight:800; color:var(--navy); }
+    .meal-note { color:var(--muted); font-size:.88rem; margin-top:2px; }
+
+    .route-list { display:grid; gap:12px; }
+    .route-card {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .route-title {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .route-title h3 { color:var(--navy); font-size:1.05rem; line-height:1.35; }
+    .route-title i { color:var(--blue); }
+    .route-card p { color:#4b5565; font-size:.94rem; }
+    
+
+    .highlight-section { margin-top:18px; }
+
+    .highlight-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .spot-card {
+      background:white;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 8px 18px rgba(23,35,61,.08);
+    }
+    .spot-card img { height:96px; object-fit:cover; }
+    .spot-body { padding:10px; }
+    .spot-body h4 { color:var(--navy); font-size:.92rem; line-height:1.3; margin-bottom:4px; }
+    .spot-body p { color:var(--muted); font-size:.78rem; line-height:1.55; }
+
+    .hotel-card {
+      background:linear-gradient(135deg, #17233d, #2d3f67);
+      color:white;
+      border:none;
+      margin-top:20px;
+    }
+    .hotel-card h3 { font-size:1.05rem; margin-bottom:8px; color:#ffe29a; }
+    .hotel-card p { color:rgba(255,255,255,.88); font-size:.9rem; }
+    .hotel-actions { display:grid; grid-template-columns:1fr; gap:9px; margin-top:13px; }
+    .hotel-btn {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:11px;
+      color:white;
+      font-weight:800;
+      font-size:.88rem;
+    }
+
+    details.info-card summary {
+      cursor:pointer;
+      font-weight:900;
+      color:var(--navy);
+      list-style:none;
+    }
+    details.info-card summary::-webkit-details-marker { display:none; }
+    details.info-card summary:after { content:'＋'; float:right; color:var(--rose); }
+    details.info-card[open] summary:after { content:'－'; }
+    details.info-card div { margin-top:12px; color:#4b5565; font-size:.92rem; }
+
+    .option-switcher {
+      display:flex;
+      overflow-x:auto;
+      gap:8px;
+      margin:0 0 14px;
+      padding-bottom:2px;
+    }
+    .option-switcher::-webkit-scrollbar { display:none; }
+    .option-btn {
+      flex:0 0 auto;
+      border:1px solid var(--line);
+      background:white;
+      border-radius:999px;
+      padding:8px 12px;
+      color:var(--navy);
+      font-weight:800;
+      font-size:.82rem;
+      cursor:pointer;
+    }
+    .option-btn.active { background:var(--rose); color:white; border-color:var(--rose); }
+    .route-group { display:none; }
+    .route-group.active { display:block; }
+
+    .simple-page {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin-bottom:14px;
+    }
+    .simple-table-wrap {
+      overflow-x:auto;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      box-shadow:0 6px 16px rgba(23,35,61,.06);
+      margin-bottom:16px;
+    }
+    .simple-table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:620px;
+      font-size:.88rem;
+      line-height:1.55;
+    }
+    .simple-table th {
+      background:var(--navy);
+      color:#fff;
+      text-align:left;
+      padding:11px 12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .simple-table td {
+      padding:11px 12px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+    }
+    .simple-table tr:last-child td { border-bottom:0; }
+    .simple-table td:first-child { font-weight:800; color:var(--navy); white-space:nowrap; }
+    .simple-table th:last-child {
+      min-width:220px;
+      width:30%;
+    }
+    .simple-table td:last-child {
+      min-width:240px;
+      width:32%;
+      line-height:1.6;
+      word-break:keep-all;
+    }
+    .simple-note {
+      background:var(--cream);
+      border-left:5px solid #d9904d;
+      border-radius:14px;
+      padding:13px;
+      color:#6f421f;
+      font-size:.9rem;
+      margin-top:4px;
+    }
+
+    
+    @media (min-width:640px){
+      .hero-img { height:330px; }
+      .meal-grid { grid-template-columns:1fr 1fr 1fr; }
+      .meal-row { display:block; border-bottom:0; border-right:1px dashed var(--line); padding:0 12px; }
+      .meal-row:last-child { border-right:0; }
+      .highlight-grid { grid-template-columns:repeat(3,1fr); }
+      .spot-card img { height:125px; }
+      .hotel-actions { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header" id="top">
+    <h1>🇬🇧 初夏英倫慢旅行</h1>
+    <p>2026/06/03 – 06/13｜倫敦・劍橋・愛丁堡・蘇格蘭高地</p>
+  </header>
+
+  <nav class="day-nav" id="dayNav"></nav>
+  <main class="container" id="app"><section class="info-card"><strong>Loading travel guide...</strong><br>如果一直停在這裡，代表 JavaScript 有語法錯誤。</section></main>
+
+  
+
+  <script>
+    const img = (q) => `https://source.unsplash.com/1200x800/?${encodeURIComponent(q)}`;
+
+    const hotels = {
+      london: {
+        name: 'Templeton Place Aparthotel',
+        desc: '17 Templeton Place, London SW5 9NB｜Earl’s Court'
+      },
+      edinburgh: {
+        name: 'Roomzzz Edinburgh',
+        desc: 'Saint James Quarter, Leith St, Edinburgh EH1 3AD, United Kingdom'
+      },
+      skye: {
+        name: 'Sgurr Alasdair (B&B En-Suite)',
+        desc: 'Viewfield Road IV51 9ES｜Portree, Isle of Skye'
+      },
+      airport: {
+        name: 'Hampton by Hilton Edinburgh Airport',
+        desc: '5 Almond Ave, Ingliston, Edinburgh, Newbridge EH12 9GN, United Kingdom'
+      }
+    };
+
+    const extraPages = [
+      {
+        id:'transport', tab:'交通/住宿', date:'✈️ 主要航班與住宿', title:'主要航班、交通與住宿資訊',
+        hero: img('London Edinburgh train travel'),
+        intro:'整理本次英國與蘇格蘭旅程的重要航班、火車、高地團與住宿資訊，方便快速查詢。',
+        routes:[
+          ['✈️ 阿姨抵達倫敦','6/3｜SQ308 → London Heathrow T2｜15:45 抵達'],
+          ['✈️ 媽媽抵達倫敦','6/3｜CI0081 → London Heathrow T3｜16:30 抵達'],
+          ['✈️ 維也納 → 倫敦','6/3｜OS331 VIE → LDN｜06:50–08:20'],
+          ['🚆 倫敦 ↔ 劍橋','6/6｜King’s Cross → Cambridge｜09:24–10:14 / 16:12–17:02'],
+          ['🚆 倫敦 → 愛丁堡','6/8｜King’s Cross → Edinburgh Waverley｜09:30–13:38'],
+          ['🏔️ Rabbie’s 高地三日團','6/10–6/12｜08:15 集合；6/12 約 19:30 返回愛丁堡'],
+          ['✈️ 愛丁堡 → 維也納','6/13｜OS346 EDI → VIE｜10:45–14:20'],
+          ['✈️ 台北 ↔ 維也納','5/26、6/17｜TPE–VIE / VIE–TPE｜22:40–08:40 / 16:00–13:25']
+        ],
+        highlights:[
+          ['Templeton Place Aparthotel','17 Templeton Place, London SW5 9NB', img('London Earl Court apartment')],
+          ['Roomzzz Edinburgh','Saint James Quarter, Leith St, Edinburgh EH1 3AD', img('Edinburgh hotel modern')],
+          ['Sgurr Alasdair B&B','Viewfield Road IV51 9ES｜Portree, Isle of Skye', img('Isle of Skye B&B Scotland')]
+        ],
+        meals:[],
+        tips:'<strong>住宿資訊：</strong><br><br>🇬🇧 倫敦｜6/3–6/8<br>Templeton Place Aparthotel<br>17 Templeton Place, London SW5 9NB<br><br>🏴 愛丁堡｜6/8–6/10<br>Roomzzz Edinburgh<br>Saint James Quarter, Leith St, Edinburgh EH1 3AD, United Kingdom<br><br>🏔️ 天空島 / 高地｜6/10–6/12<br>Sgurr Alasdair (B&B En-Suite)<br>Viewfield Road IV51 9ES<br><br>✈️ 愛丁堡機場｜6/12–6/13<br>Hampton by Hilton Edinburgh Airport<br>5 Almond Ave, Ingliston, Edinburgh, Newbridge EH12 9GN, United Kingdom',
+        hotel:{ name:'旅程資訊總覽', desc:'航班、火車與住宿資訊皆可於此頁快速查詢。' }
+      },
+      {
+        id:'customs', tab:'海關問答', date:'🛂 入境英文小抄', title:'英國海關常見問答',
+        hero: img('Heathrow airport immigration'),
+        intro:'入境英國時若被海關詢問，可參考以下簡單英文回答。大多數情況下保持自然與微笑即可。',
+        routes:[
+          ['What is the purpose of your visit?','We are visiting the UK for tourism.<br><br>旅遊觀光'],
+          ['How long will you stay in the UK?','We will stay in the UK from 3 June to 13 June.<br><br>6/3–6/13 在英國'],
+          ['Where will you stay?','We will stay at Templeton Place Aparthotel in London, then Roomzzz Edinburgh and a hotel near Edinburgh Airport.<br><br>可出示飯店訂房資料'],
+          ['What will you do in the UK?','We will visit London, Cambridge, Edinburgh, and join a three-day Highlands tour.<br><br>倫敦、劍橋、愛丁堡、高地團'],
+          ['Who are you travelling with?','I am travelling with my mother and aunt.<br><br>與媽媽和阿姨同行'],
+          ['Do you have a return or onward ticket?','Yes. We will fly from Edinburgh to Vienna on 13 June, and later return to Taiwan.<br><br>可出示 EDI → VIE 航班與回台機票'],
+          ['Do you have travel insurance?','Yes, we have travel insurance.<br><br>建議存在手機並可離線查看']
+        ],
+        highlights:[
+          ['Passport','護照與登機證建議事先整理在同一資料夾。', img('passport boarding pass travel')],
+          ['Hotel Booking','住宿訂房資料可先截圖存在手機。', img('hotel booking phone travel')],
+          ['Travel Insurance','旅平險與機票資料建議離線保存。', img('travel insurance documents')]
+        ],
+        meals:[],
+        tips:'<strong>小提醒：</strong><br>海關通常不會問太多問題，保持自然回答即可。若聽不清楚，可以禮貌請對方再說一次：<br><br>“Sorry, could you say that again?”',        hotel:{ name:'入境資料建議', desc:'護照、保險、飯店資訊與後續機票建議預先下載離線保存。' }
+      }
+    ];
+
+    const days = [...extraPages, 
+      {
+        id:'day1', tab:'6/3 三', date:'🇬🇧 6月3日（三）', title:'倫敦夏日序章：抵達倫敦',
+        hero: img('London evening street Piccadilly Line'),
+        intro:'從希斯洛機場搭上 Piccadilly Line，慢慢進入倫敦的夏日晚光，展開這趟英倫與高地旅程。',
+        routes:[
+          ['✈️ 抵達與入住','阿姨（T2 15:45）與媽媽（T3 16:30）抵達希斯洛機場後，預計於 Heathrow Terminals 2 & 3 Underground Station 會合，搭乘藍線 Piccadilly Line 約 45 分鐘直達 Earl’s Court，入住 Templeton Place 公寓式酒店。晚上不排正式行程，可在飯店周邊簡單晚餐，順道採買水果、飲水與旅途補給品。']
+        ],
+        tips:'<strong>入境注意事項：</strong><br>1. 下飛機後沿著 ARRIVAL 指標走。<br>2. 過海關若被詢問，可出示手機內的「愛丁堡－維也納機票」與「倫敦住宿確認信」。<br>3. 拿完行李後走 Nothing to declare Exit，跟著 UNDERGROUND 標示前往 Piccadilly Line。<br>4. T2 與 T3 共用一個 Heathrow Terminals 2 & 3 Underground Station，約 Piccadilly Line 中庭會合較方便。',
+        guideLink:'https://toyadailylife.com/london-underground/',
+        highlights:[],
+        meals:[['早餐','—','抵達日不安排早餐。'],['午餐','機上或機場簡單吃','以抵達與會合為主。'],['晚餐','飯店周邊覓食','入住後簡單吃、採買補給。']],
+        hotel:hotels.london
+      },
+      {
+        id:'day2', tab:'6/4 四', date:'🇬🇧 6月4日（四）', title:'西敏經典與世界級博物館',
+        hero: img('Big Ben Westminster Bridge London morning'),
+        intro:'初探倫敦最經典的城市風景，結合了皇家地標、倫敦街景、公園散步與世界級博物館。',
+        options:[
+          {name:'方案一 西敏經典 × SOHO × 大英博物館', routes:[
+            ['📸 西敏經典散步','早晨的陽光灑在大笨鐘正面最完美。漫步於西敏橋上，穿過隱藏的 Bridge Arch 拱門尋找內行人的拍照角度，和經典紅色電話亭、國會大廈與雄偉的西敏寺合影，留下最深刻的倫敦第一印象。'],
+            ['🌳 St. James’s Park 與皇家衛兵','散步穿越綠意盎然的皇家公園 St. James’s Park，在樹蔭與長椅間稍作休息，還可以找可愛的小木屋；隨後前往 St. James’s Palace 近距離觀看皇家衛兵站崗，隨後步行至 Fortnum & Mason 旗艦店，可選購皇室御用茶葉與英式餅乾。'],
+            ['🏛️ 大英博物館','接著跳上紅色公車驅車往大英博物館前進，重點參觀羅塞塔石碑、埃及木乃伊與 Great Court 大中庭。<br><br><strong>門票提示：</strong>已預訂 15:00 入場。'],
+            ['🍷 Pierre Victoire Soho 晚餐','晚餐則選擇位在 SOHO 核心區，一家深受當地人喜愛的經典英倫法式小酒館。店內燭光搖曳、環境溫馨，提供精緻超值的道地法式料理。<br><br><strong>預約叮嚀：</strong>已訂妥 18:15 晚宴席位。']
+          ], highlights:[
+            ['Big Ben','倫敦最經典的城市地標之一，早晨順光時特別適合拍照。', img('Big Ben London')],
+            ['Westminster Abbey','英國王室加冕與重要典禮舉行地，哥德式建築非常壯觀。', img('Westminster Abbey London')],
+            ['British Museum','世界級博物館，以羅塞塔石碑、木乃伊與大中庭聞名。', img('British Museum London')]
+          ], meals:[['早餐','簡單解決','Coffee Shop 或飯店附近早餐。'],['午餐','St. James’s Park or SOHO','依照當日時間安排。'],['晚餐','Pierre Victoire Soho','法式餐館。']] },
+          {name:'方案二 皇家公園 × 國家美術館', routes:[
+            ['📸 西敏經典散步','早晨的陽光灑在大笨鐘正面最完美。漫步於西敏橋上，穿過隱藏的 Bridge Arch 拱門尋找內行人的拍照角度，和經典紅色電話亭、國會大廈與雄偉的西敏寺合影，留下最深刻的倫敦第一印象。'],
+            ['🌳 St. James’s Park 與皇家衛兵','散步穿越綠意盎然的皇家公園 St. James’s Park，在樹蔭與長椅間稍作休息，還可以找可愛的小木屋；隨後前往 St. James’s Palace 近距離觀看皇家衛兵站崗，隨後步行或搭車往特拉法加廣場 (Trafalgar Square) 、國家美術館 (The National Gallery) 前進，有機會路過 2026/4/29 出現的 Latest Banksy Artwork。'],
+            ['🖼️ 國家美術館：沙發靜賞梵谷名畫','座落在特拉法加廣場旁，館內有無障礙動線且設有大量舒適沙發座位。可以舒服地坐著，一邊吹冷氣休息，一邊靜靜凝視梵谷的傳世巨作《向日葵》。<br><br><strong>門票提示：</strong>已預訂 14:00 入場。'],
+            ['🌆 SOHO 與 Regent Street 散策','下午沿著 SOHO、Regent Street 與周邊街區慢慢散步，看倫敦街景與小店。'],
+            ['🍷 晚宴饗宴：Pierre Victoire Soho（法式餐館）','位於鬧中取靜的 SOHO 核心區，是一家深受當地人喜愛的經典英倫法式小酒館。店內燭光搖曳、環境非常溫馨，提供精緻超值的道地法式料理，為充實的一天劃下完美句點。<br><br><strong>預約叮嚀：</strong>已訂妥 18:15 晚宴席位。']
+          ], highlights:[
+            ['Big Ben','倫敦最經典的城市地標之一，早晨順光時特別適合拍照。', img('Big Ben London')],
+            ['Westminster Abbey','英國王室加冕與重要典禮舉行地，哥德式建築非常壯觀。', img('Westminster Abbey London')],
+            ['The National Gallery','座落於 Trafalgar Square 旁，收藏梵谷《向日葵》等世界級經典畫作。', img('The National Gallery London')]
+          ], meals:[['早餐','簡單解決','Coffee Shop 或飯店附近早餐。'],['午餐','St. James’s Park or Trafalgar Square','依照當日時間安排。'],['晚餐','Pierre Victoire Soho','法式餐館。']] },
+          {name:'方案三 SOHO × Regent Street × Liberty', routes:[
+            ['📸 西敏經典散步','早晨的陽光灑在大笨鐘正面最完美。漫步於西敏橋上，穿過隱藏的 Bridge Arch 拱門尋找內行人的拍照角度，和經典紅色電話亭、國會大廈與雄偉的西敏寺合影，留下最深刻的倫敦第一印象。'],
+            ['🌳 St. James’s Park 與皇家衛兵','散步穿越綠意盎然的皇家公園 St. James’s Park，在樹蔭與長椅間稍作休息，還可以找可愛的小木屋；隨後前往 St. James’s Palace 近距離觀看皇家衛兵站崗，隨後步行至 Fortnum & Mason 旗艦店，可選購皇室御用茶葉與英式餅乾。'],
+            ['🛍️ SOHO × Regent Street × Covent Garden','漫步至柯芬園 (Covent Garden)，或沿著 SOHO、Regent Street 與周邊街區一路散步，拜訪古典 Liberty 百貨與充滿文青氣息的 Seven Dials 色彩市集；Regent Street 則可欣賞倫敦最經典的弧形建築街景。'],
+            ['🍷 晚宴饗宴：Pierre Victoire Soho（法式餐館）','位於鬧中取靜的 SOHO 核心區，是一家深受當地人喜愛的經典英倫法式小酒館。店內燭光搖曳、環境非常溫馨，提供精緻超值的道地法式料理，為充實的一天劃下完美句點。']
+          ], highlights:[
+            ['Big Ben','倫敦最經典的城市地標之一，早晨順光時特別適合拍照。', img('Big Ben London')],
+            ['Westminster Abbey','英國王室加冕與重要典禮舉行地，哥德式建築非常壯觀。', img('Westminster Abbey London')],
+            ['Regent Street','倫敦最經典的購物大道之一，以優雅弧形建築街景與英倫氛圍聞名。', img('Regent Street London')]
+          ], meals:[['早餐','簡單解決','Coffee Shop 或飯店附近早餐。'],['午餐','St. James’s Park or SOHO','依照當日時間安排。'],['晚餐','Pierre Victoire Soho','法式餐館。']] }
+        ],
+        tips:'',
+        hotel:hotels.london
+      }
+    ];
+
+    const moreDays = [
+      ['day3','6/5 五','🇬🇧 6月5日（五）','波羅市場、空中花園與泰晤士河南岸散步','今天以波羅市場、泰晤士河南岸與倫敦城市天際線為主軸，安排市場午餐、河岸散步與不同版本的 Sky Garden 路線。','Sky Garden London sunset'],
+      ['day4','6/6 六','🇬🇧 6月6日（六）','劍橋一日遊：康河撐篙與學院巡禮','今天暫時離開倫敦，搭乘舒適火車前往古老學院風情環繞的學府小鎮——劍橋。','Cambridge punting river Cam'],
+      ['day5','6/7 日','🇬🇧 6月7日（日）','南肯辛頓慢活：早餐、博物館與公園散步','倫敦最後一天留在南肯辛頓與飯店周邊，從英式早餐開始，參觀自然史博物館，再到 Harrods、Kynance Mews 與 Kensington Gardens 慢慢散步。','Natural History Museum London Hintze Hall'],
+      ['day6','6/8 一','🏴 6月8日（一）','揮別倫敦：前往蘇格蘭古城愛丁堡','今天搭上英國火車一路北上，從倫敦前往蘇格蘭首府愛丁堡，展開截然不同的高地與古城旅程。','Edinburgh Calton Hill sunset'],
+      ['day7','6/9 二','🏴 6月9日（二）','愛丁堡探索：舊城全景或 Puffin 備選','今天以愛丁堡舊城為主，從城堡一路走到 Royal Mile、Victoria Street 與咖啡館。另一個海邊小鎮版本則安排 North Berwick 與海鳥中心。','Edinburgh Castle Victoria Street'],
+      ['day8','6/10 三','🏔️ 6月10日（三）','蘇格蘭高地序章：山谷、湖泊與天空島','今天正式離開愛丁堡，沿著蘇格蘭高地公路一路北上，穿越湖泊、峽谷與荒野山景，傍晚抵達天空島門戶 Portree。','Glencoe Scottish Highlands dramatic valley'],
+      ['day9','6/11 四','🏔️ 6月11日（四）','蘇格蘭高地秘境：天空島奇岩與海岸風景','今天深入 Isle of Skye 精華景點，沿著 Trotternish Ridge 景觀線一路探索老人岩、裙岩瀑布與 Quiraing 奇幻山脊。高地天氣變化快速，沿途風景與停靠點也會依導遊安排調整。','Isle of Skye Quiraing Old Man of Storr'],
+      ['day10','6/12 五','🏔️ 6月12日（五）','蘇格蘭高地尾聲：尼斯湖、山谷公路與回到愛丁堡','今天離開天空島，沿著高地公路一路南下，經過 Cuillin Hills、尼斯湖與維多利亞風格小鎮 Pitlochry，傍晚返回愛丁堡。','Loch Ness Scotland Urquhart Castle'],
+      ['day11','6/13 六','✈️ 6月13日（六）','揮別蘇格蘭：前往維也納','今天從愛丁堡機場出發，結束英國與蘇格蘭旅程，搭乘奧地利航空前往維也納，展開下一段歐洲夏日旅行。','Edinburgh Airport travel morning']
+    ];
+
+    moreDays.forEach(function(d, index){
+      if(d[0] === 'day3'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          options:[
+            {name:'方案一 波羅市場 × South Bank 散步 × Sky Garden', routes:[
+              ['🌳 St. James’s Park 與皇家衛兵','散步穿越綠意盎然的皇家公園 St. James’s Park，在樹蔭與長椅間稍作休息，還可以找可愛的小木屋；隨後前往 St. James’s Palace，10:30 看皇家衛兵準備出發去換班。'],
+              ['🍴 波羅市場午餐 × 南岸散策','隨後搭車往波羅市場 (Borough Market) 午餐喝咖啡，沿著泰晤士河南岸步道 (Queen’s Walk) 散步，仰望倫敦塔橋 (Tower Bridge)。'],
+              ['🌿 倫敦空中花園','16:45 Sky Garden 俯瞰倫敦 → 視體力可繞去鄰近 Leadenhall Market 哈利波特電影場景拍照 → 泰晤士河岸散步 or Uber Boat 回西敏碼頭，晚餐簡單吃。<br><br><strong>預約提醒：</strong>16:45 入場（建議提前 20 分鐘左右抵達）。']
+            ], highlights:[
+              ['皇家衛兵','St. James’s Palace 皇家衛兵與換班準備，是倫敦皇家區經典景色之一。', img('St James Palace guards London')],
+              ['Borough Market','倫敦最具代表性的美食市集之一，適合午餐與咖啡休息。', img('Borough Market London food')],
+              ['Tower Bridge','倫敦最經典的地標之一，傍晚開橋畫面相當震撼。', img('Tower Bridge London sunset')]
+            ], meals:[['早餐','簡單解決','Coffee Shop 或飯店附近早餐。'],['午餐','Borough Market','市場附近午餐與咖啡。'],['晚餐','Westminster / Sky Garden','晚餐簡單吃。']]},
+            {name:'方案二 大英博物館 × 波羅市場 × 南岸散步 × Sky Garden', routes:[
+              ['🏛️ 大英博物館','補參觀昨天沒參觀到，世界三大博物館之一的大英博物館，重點參觀羅塞塔石碑、埃及木乃伊與 Great Court 大中庭。<br><br><strong>門票提示：</strong>已預訂 10:50 入場。'],
+              ['🍴 波羅市場午餐 × 南岸散策','隨後搭車往波羅市場 (Borough Market) 避開尖峰時刻享用午餐喝咖啡，沿著泰晤士河南岸步道 (Queen’s Walk) 散步，仰望倫敦塔橋 (Tower Bridge)。'],
+              ['🌿 倫敦空中花園','16:45 Sky Garden 俯瞰倫敦 → 視體力可繞去鄰近 Leadenhall Market 哈利波特電影場景拍照 → 泰晤士河岸散步 or Uber Boat 回西敏碼頭，晚餐簡單吃。<br><br><strong>預約提醒：</strong>16:45 入場（建議提前 20 分鐘左右抵達）。']
+            ], highlights:[
+              ['British Museum','世界三大博物館之一，以羅塞塔石碑、埃及木乃伊與 Great Court 大中庭聞名。', img('British Museum London')],
+              ['Borough Market','倫敦最具代表性的美食市集之一，適合午餐與咖啡休息。', img('Borough Market London food')],
+              ['Tower Bridge','倫敦最經典的地標之一，傍晚開橋畫面相當震撼。', img('Tower Bridge London sunset')]
+            ], meals:[['早餐','簡單解決','Coffee Shop 或飯店附近早餐。'],['午餐','Borough Market','市場附近午餐與咖啡。'],['晚餐','Westminster / Sky Garden','晚餐簡單吃。']]},
+            {name:'方案三 Sky Garden × 波羅市場 × South Bank散策 × 塔橋開橋', routes:[
+              ['🌿 Leadenhall Market × Sky Garden','一早登上 Sky Garden 俯瞰倫敦，前往 Leadenhall Market 欣賞維多利亞風格拱廊街景與哈利波特電影場景，穿越橋至對岸波羅市場 (Borough Market) 吃午餐。<br><br><strong>門票提示：</strong>已預訂 10:15 入場。'],
+              ['🍴 Borough Market 午餐 × 南岸散策','在 Borough Market 享受市場午餐與咖啡，沿著泰晤士河南岸 (Queen\'s Walk) 慢慢散步，欣賞倫敦最經典的河岸城市風景。<br><br><strong>小提醒：</strong>太熱可進去 Tate Museum 避暑。'],
+              ['🌉 倫敦塔橋開橋 16:30','傍晚 16:30 從南岸仰望倫敦塔橋，見證歷史悠久的塔橋巨型雙翼橋面緩緩升起的震撼畫面。<br><br>可以繼續沿著南岸漫步、亦可參觀 Tate Museum，或搭 Uber Boat 回西敏碼頭，晚餐就近吃。']
+            ], highlights:[
+              ['Leadenhall Market','維多利亞風格拱廊街景，也是哈利波特電影場景之一。', img('Leadenhall Market London')],
+              ['Borough Market','倫敦最具代表性的美食市集之一，適合午餐與咖啡休息。', img('Borough Market London food')],
+              ['Tower Bridge','倫敦最經典的地標之一，傍晚開橋畫面相當震撼。', img('Tower Bridge London sunset')]
+            ], meals:[['早餐','簡單解決','Coffee Shop 或飯店附近早餐。'],['午餐','Borough Market','市場附近午餐與咖啡。'],['晚餐','Westminster / South Bank','晚餐簡單吃。']]},
+            {name:'方案四 Morning Coffee × 金融區散策 × Sky Garden', routes:[
+              ['☕ Coffee × 金融區散策','一杯好咖啡開啟美好的一天，在倫敦金融區巷弄穿梭探險，欣賞 Leadenhall Market 維多利亞風格拱廊街景與哈利波特電影場景，再穿越橋至對岸波羅市場 (Borough Market) 吃午餐。'],
+              ['🍴 Borough Market 午餐 × 南岸散策','在 Borough Market 享受市場午餐與咖啡，沿著泰晤士河南岸 (Queen\'s Walk) 慢慢散步，欣賞倫敦最經典的河岸城市風景。<br><br><strong>小提醒：</strong>太熱可進去 Tate Museum 避暑。'],
+              ['🌿 倫敦空中花園','16:45 Sky Garden 俯瞰倫敦，也有機會看到 17:15 的開橋；可繼續沿著泰晤士河岸散步 or Uber Boat 回西敏碼頭，晚餐簡單吃。<br><br><strong>預約提醒：</strong>16:45 入場（建議提前 20 分鐘左右抵達）。']
+            ], highlights:[
+              ['Leadenhall Market','維多利亞風格拱廊街景，也是哈利波特電影場景之一。', img('Leadenhall Market London')],
+              ['Borough Market','倫敦最具代表性的美食市集之一，適合午餐與咖啡休息。', img('Borough Market London food')],
+              ['Tower Bridge','倫敦最經典的地標之一，傍晚開橋畫面相當震撼。', img('Tower Bridge London sunset')]
+            ], meals:[['早餐','Specialty Coffee','咖啡與輕食。'],['午餐','Borough Market','市場附近午餐與咖啡。'],['晚餐','Westminster / Sky Garden','晚餐簡單吃。']]}
+          ],
+          tips:'',
+          highlights:[],
+          meals:[],
+          hotel:hotels.london
+        });
+        return;
+      }
+
+      if(d[0] === 'day4'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          routes:[
+            ['🌿 康河撐篙 × 嘆息橋 × 國王學院 × 數學橋','坐在鋪有軟墊的船艙內，聽著船夫划船吟詠，緩緩穿梭於著名的「嘆息橋」與「數學橋」之間，飽覽國王學院、三一學院後花園與康河垂柳交織出的經典劍橋風景。'],
+            ['🍕 劍橋市區散策 × 午餐 × Chelsea Bun','Aromi 義式披薩或劍橋市集午餐自由覓食；下午可至 Fitzbillies 品嚐百年 Chelsea Bun 肉桂捲與英式甜點。'],
+            ['🚂 King’s Cross 9¾ 月台 × Hoppers 異國晚餐','傍晚返回倫敦後，於 Hoppers King’s Cross 享用斯里蘭卡料理；F&M St Pancras 與哈利波特 9¾ 月台可視時間自由穿插。<br><br><strong>預約叮嚀：</strong>已訂妥 18:00 晚宴席位。']
+          ],
+          tips:'<strong>交通備忘錄：</strong><br>去程主班次：09:24 King’s Cross 發車（建議提前約 30 分鐘抵達車站，可順便買早餐）<br><br>回程主班次：16:12 劍橋發車',
+          highlights:[
+            ['Cambridge Punting','搭乘康河撐篙穿越劍橋經典學院後花園與橋樑景色。', img('Cambridge punting river Cam')],
+            ['King’s College','劍橋最具代表性的學院之一，以壯麗哥德式教堂聞名。', img('Kings College Cambridge')],
+            ['Trinity College','牛頓曾就讀的百年學院，也是劍橋最著名的學院之一。', img('Trinity College Cambridge')]
+          ],
+          meals:[['早餐','簡單解決','Coffee Shop 或 King’s Cross 外帶早餐。'],['午餐','依行程安排','Aromi / 劍橋市集 / 咖啡店自由安排。'],['晚餐','Hoppers King’s Cross','斯里蘭卡料理。']],
+          hotel:hotels.london
+        });
+        return;
+      }
+
+      if(d[0] === 'day5'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          routes:[
+            ['🫖 The Muffin Man Tea Shop','在充滿英倫老派氣息的小茶館享用英式早餐、司康與三層下午茶 set；即使是早上，也可以悠閒點上一份經典 Afternoon Tea。'],
+            ['🦕 自然史博物館','前往自然史博物館 (Natural History Museum)，欣賞維多利亞式建築光影與大廳藍鯨 Hope。<br><br><strong>門票提示：</strong>已預訂 11:00 入場。'],
+            ['🛍️ Harrods 最後採購','可步行至隔壁 V&A 博物館 Gamble Room（世界最美咖啡廳）喝茶避暑；若前幾天還沒買齊伴手禮，可前往 Harrods 逛食品區與百貨，或是 SOHO 區補貨。<br><br><strong>小提醒：</strong>英國禮拜天商店 18:00 左右關門。'],
+            ['🌿 南肯辛頓 × 公園散策','漫步南肯最美馬廄小巷 Kynance Mews，在肯辛頓公園看天鵝、松鼠與夕陽；晚餐可外帶至公園野餐，或在南肯辛頓輕鬆吃。']
+          ],
+          tips:'',
+          highlights:[
+            ['English Breakfast','英式早餐、司康與 Afternoon Tea，是倫敦慢活早晨最經典的打開方式。', img('English breakfast London tea shop')],
+            ['Natural History Museum','維多利亞式建築與 Hope 藍鯨大廳，是倫敦最受歡迎的博物館之一。', img('Natural History Museum London Hintze Hall')],
+            ['Kensington Gardens','肯辛頓花園與海德公園相連，傍晚散步氣氛非常舒服。', img('Kensington Gardens London sunset')]
+          ],
+          meals:[['早餐','The Muffin Man Tea Shop','英式早餐、司康或 Afternoon Tea。'],['午餐','依行程安排','Harrods / V&A / SOHO 自由安排。'],['晚餐','野餐或南肯辛頓餐廳','輕鬆吃或公園野餐。']],
+          hotel:hotels.london
+        });
+        return;
+      }
+
+      if(d[0] === 'day6'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          options:[
+            {name:'版本一 愛丁堡全景 × 市區散策', routes:[
+              ['🚆 英國火車 × 北上愛丁堡','搭上英國經典長途火車，沿著英格蘭東岸一路北上前往蘇格蘭。窗外景色會慢慢從倫敦城市風景，轉變為英國鄉村與海岸線景色。<br><br><strong>交通注意：</strong><br>09:30–13:38 火車。建議至少提前 30 分鐘抵達車站找月台與買早餐，預計 08:00 前出發，可視情況搭乘 Tube 或 Taxi 前往 King’s Cross。'],
+              ['🌄 愛丁堡火車站 × 午餐或咖啡 × Calton Hill','先至飯店 Check-in 放行李，簡單吃點東西後，沿著緩坡慢慢登上 Calton Hill，俯瞰愛丁堡古城、鐘塔與遠方海景。'],
+              ['🏰 愛丁堡市區散策','下山後可視體力與心情，自由往新城區散步，或前往 Royal Mile 一帶探險。']
+            ], highlights:[
+              ['King’s Cross 9¾ 月台','倫敦最具代表性的電影場景之一，也是北上蘇格蘭前的經典起點。', img('Kings Cross Platform 9 3/4 Harry Potter')],
+              ['Edinburgh','愛丁堡融合古城、山丘與石造建築，是蘇格蘭最迷人的城市之一。', img('Edinburgh Scotland old town')],
+              ['Calton Hill','愛丁堡最經典的城市制高點之一，可俯瞰古城與遠方海景。', img('Calton Hill Edinburgh sunset')]
+            ], meals:[['早餐','外帶至火車上吃','King’s Cross Coffee Shop 早餐。'],['午餐','飯店附近','簡單午餐或咖啡。'],['晚餐','愛丁堡特色 Pub / 餐廳','蘇格蘭風格晚餐。']]},
+            {name:'版本二 愛丁堡舊城漫遊', routes:[
+              ['🚆 英國火車 × 北上愛丁堡','搭上英國經典長途火車，沿著英格蘭東岸一路北上前往蘇格蘭。窗外景色會慢慢從倫敦城市風景，轉變為英國鄉村與海岸線景色。<br><br><strong>交通注意：</strong><br>09:30–13:38 火車。建議至少提前 30 分鐘抵達車站找月台與買早餐，預計 08:00 前出發，可視情況搭乘 Tube 或 Taxi 前往 King’s Cross。'],
+              ['☕ 愛丁堡火車站 × 午餐或咖啡 × 舊城區漫遊','先至飯店 Check-in 放行李，簡單吃點東西後，沿著 Royal Mile 一路散步，眺望愛丁堡城堡、穿越 Victoria Street、St Giles’ Cathedral 與舊城石板街小店。']
+            ], highlights:[
+              ['King’s Cross 9¾ 月台','倫敦最具代表性的電影場景之一，也是北上蘇格蘭前的經典起點。', img('Kings Cross Platform 9 3/4 Harry Potter')],
+              ['Edinburgh Castle','矗立火山岩上的愛丁堡城堡，是蘇格蘭最具代表性的歷史地標。', img('Edinburgh Castle Scotland')],
+              ['Royal Mile','連接城堡與皇宮的石板古街，也是愛丁堡舊城核心。', img('Royal Mile Edinburgh')]
+            ], meals:[['早餐','外帶至火車上吃','King’s Cross Coffee Shop 早餐。'],['午餐','飯店附近','簡單午餐或咖啡。'],['晚餐','愛丁堡特色 Pub / 餐廳','蘇格蘭風格晚餐。']]}
+          ],
+          tips:'',
+          hotel:hotels.edinburgh
+        });
+        return;
+      }
+
+      if(d[0] === 'day7'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:'愛丁堡散步日：舊城、城堡與蘇格蘭日常', hero:img(d[5]),
+          intro:'今天放慢腳步探索愛丁堡，穿梭於石板古街、城堡與舊城小巷之間，也為隔天即將展開的蘇格蘭高地旅程暖身。',
+          options:[
+            {name:'版本一 愛丁堡城堡 × 舊城深度遊', routes:[
+              ['🏰 愛丁堡城堡 × 舊城深度遊','享用早餐後往舊城區出發，參觀愛丁堡城堡，沿著 Royal Mile 漫步，經過 St Giles’ Cathedral 聖吉爾斯大教堂與 Victoria Street（斜角巷）。途中可在 The Milkman 或附近咖啡館休息。'],
+              ['☕ 舊城區 × 新城區散步','下午可繼續探索舊城區小巷，或回到新城區王子街附近逛街購物。'],
+              ['🧳 高地行李整理','小提醒：今晚記得整理行李，明天出發高地只建議攜帶行李袋，或三人共用一件大行李箱。']
+            ], highlights:[
+              ['Edinburgh Castle','矗立於火山岩上的愛丁堡城堡，是蘇格蘭最具代表性的歷史地標。', img('Edinburgh Castle Scotland')],
+              ['The Elephant House','愛丁堡知名咖啡館之一，與哈利波特創作故事有所連結。', img('Elephant House Edinburgh cafe')],
+              ['Scotch Whisky','蘇格蘭威士忌文化是愛丁堡與高地旅程的重要元素之一。', img('Scotch whisky Edinburgh')]
+            ], meals:[['早餐','Cafe or Hotel 待找','依照當日安排。'],['午餐','舊城區 待找','Royal Mile 周邊。'],['晚餐','新城區 待找','愛丁堡特色 Pub / 餐廳。']]},
+            {name:'版本二 Puffin 追蹤一日遊備選', routes:[
+              ['🐧 Puffin 追蹤一日遊','若想看海鸚，可考慮前往 North Berwick / boat tour。五、六月是蘇格蘭海鸚繁殖季，需注意船班、天氣與海況。'],
+              ['🧥 出海小提醒','建議攜帶防風外套、防滑鞋與暈船藥；此版本風景特別但不如市區行程穩定。'],
+              ['🏰 備案：愛丁堡舊城慢遊','若天氣不好或不想搭船，可改回愛丁堡舊城區慢慢散步與喝咖啡。']
+            ], highlights:[
+              ['Puffin','五、六月是蘇格蘭海鸚繁殖季，有機會近距離看到可愛海鸚。', img('Puffin Scotland')],
+              ['North Berwick','蘇格蘭東岸海邊小鎮，以海景與 boat tour 聞名。', img('North Berwick Scotland coast')],
+              ['Edinburgh','即使不出海，也可隨時回到愛丁堡舊城慢遊。', img('Edinburgh Scotland old town')]
+            ], meals:[['早餐','Cafe or Hotel 待找','依照當日安排。'],['午餐','依照行程','視 boat tour 與交通安排。'],['晚餐','愛丁堡 待找','回市區後自由安排。']]}
+          ],
+          tips:'',
+          hotel:hotels.edinburgh
+        });
+        return;
+      }
+
+      if(d[0] === 'day8'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          routes:[
+            ['🚍 Edinburgh Bus Station 集合出發','07:30 先寄放大行李，08:15 於 Edinburgh Bus Station 集合出發，正式展開蘇格蘭高地三日旅程。'],
+            ['🌿 羅蒙湖 × 高地公路風景','沿途進入蘇格蘭高地與國家公園區域，停靠羅蒙湖（Loch Lomond）一帶休息，可在湖畔散步、感受高地湖區風景。'],
+            ['⛰️ 格倫科峽谷（Glencoe）','穿越蘇格蘭最壯闊也最悲壯的高地峽谷之一。Glencoe 火山谷地景色荒涼壯麗，也是《007：空降危機》等電影取景地。'],
+            ['🏰 艾琳多南堡（Eilean Donan Castle）','蘇格蘭最經典也最浪漫的城堡之一，靜靜矗立於三座海灣交會處，也是高地明信片般的代表風景。'],
+            ['🌙 抵達天空島 Portree','傍晚抵達天空島門戶 Portree，入住 B&B，為隔天的 Isle of Skye 深度探險做準備。']
+          ],
+          tips:'',
+          highlights:[
+            ['Glencoe','蘇格蘭高地最經典的峽谷與荒野風景之一，也是多部電影取景地。', img('Glencoe Scottish Highlands dramatic valley')],
+            ['Eilean Donan Castle','位於三海湖交會處的夢幻古堡，是蘇格蘭最具代表性的城堡之一。', img('Eilean Donan Castle Scotland')],
+            ['Portree','天空島最具代表性的港口小鎮，也是高地旅程的重要據點。', img('Portree Isle of Skye colorful harbor')]
+          ],
+          meals:[['早餐','外帶早餐','集合前簡單解決。'],['午餐','依高地團安排','沿途休息站或小鎮自由用餐。'],['晚餐','Portree / B&B 附近','天空島簡單晚餐。']],
+          hotel:hotels.skye
+        });
+        return;
+      }
+
+      if(d[0] === 'day9'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          routes:[
+            ['🏔️ Trotternish Ridge 景觀線','沿著天空島最經典的 Trotternish Ridge 景觀線一路前進，欣賞壯闊高地山脊與海岸風景。'],
+            ['🪨 Old Man of Storr × Kilt Rock','前往天空島代表性地標 Old Man of Storr 老人岩，以及 Kilt Rock 裙岩瀑布，看瀑布直接墜入大海的震撼畫面。'],
+            ['🌿 Quiraing 奇幻山脊','下午前往 Quiraing（翠廉山）一帶，欣賞因地崩形成的奇幻山脊與高地草原景色，也是天空島最經典的風景之一。'],
+            ['🌦️ 高地天氣提醒','Rabbie’s 司機會視天氣與路況調整順序；高地天氣變化非常快，建議隨身攜帶水、零食、保暖層與雨具，手機與相機也請保持電量。']
+          ],
+          tips:'',
+          highlights:[
+            ['Old Man of Storr','天空島最著名的巨大岩柱與高地步道，也是蘇格蘭代表風景之一。', img('Old Man of Storr Isle of Skye')],
+            ['Kilt Rock','玄武岩海岸與瀑布直接落入海中的景色，是天空島經典地標。', img('Kilt Rock waterfall Isle of Skye')],
+            ['Quiraing','因古老地崩形成的奇幻山脊與高地地形，被譽為天空島最夢幻景色。', img('Quiraing Isle of Skye dramatic landscape')]
+          ],
+          meals:[['早餐','B&B 早餐','高地住宿早餐。'],['午餐','依高地團安排','沿途休息點自由用餐。'],['晚餐','Portree / B&B 附近','天空島簡單晚餐。']],
+          hotel:hotels.skye
+        });
+        return;
+      }
+
+      if(d[0] === 'day10'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          routes:[
+            ['🌄 Cuillin Hills × Sligachan Bridge','上午離開天空島，沿途經過 Cuillin Hills 山脈與 Sligachan Bridge 一帶高地風景，再返回蘇格蘭本島。'],
+            ['🏰 Eilean Donan Castle','再次近距離欣賞蘇格蘭最經典的艾琳多南堡（Eilean Donan Castle），感受高地古堡與湖泊交織出的風景。'],
+            ['🐉 尼斯湖 × Fort Augustus','前往尼斯湖（Loch Ness）與 Fort Augustus 一帶自由活動，可沿著 Caledonian Canal 散步，看船隻穿越水閘，或到湖邊尋找尼斯湖水怪蹤跡。'],
+            ['☕ Pitlochry 午茶小鎮','下午經過迷人的維多利亞風格小鎮 Pitlochry，適合短暫散步與喝杯熱茶休息。'],
+            ['🌉 福斯橋 × 返回愛丁堡','回程途中有機會經過福斯橋（Forth Bridge），欣賞世界遺產紅色鐵橋景觀；預計 19:00–19:30 返回愛丁堡市中心。'],
+            ['🚋 前往機場飯店','最推薦搭乘愛丁堡 Tram，從 St Andrew Square 站直達 Edinburgh Airport，車程約 35 分鐘；Hampton by Hilton Edinburgh Airport 從航廈步行約 5–8 分鐘即可抵達。']
+          ],
+          tips:'<strong>晚餐建議（巴士站周邊）：</strong><br>St James Quarter 的 Bonnie & Wild 美食匯就在巴士站對面，集合多間蘇格蘭特色餐飲攤位，冷氣與座位空間都相當舒適，也不需事先預約。',
+          highlights:[
+            ['Loch Ness','傳說中的尼斯湖與高地湖區風景，是蘇格蘭最知名地標之一。', img('Loch Ness Scotland')],
+            ['Pitlochry','充滿維多利亞風格的小鎮，也是高地公路常見休息點。', img('Pitlochry Scotland town')],
+            ['Forth Bridge','世界遺產級紅色鐵路橋，也是蘇格蘭代表性工程景觀。', img('Forth Bridge Scotland sunset')]
+          ],
+          meals:[['早餐','B&B 早餐','高地住宿早餐。'],['午餐','Fort Augustus','尼斯湖周邊自由用餐。'],['晚餐','St James Quarter / Bonnie & Wild','回到愛丁堡後簡單吃。']],
+          hotel:hotels.airport
+        });
+        return;
+      }
+
+      if(d[0] === 'day11'){
+        days.push({
+          id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+          routes:[
+            ['🍳 機場飯店早餐 × 整理行李','早晨在 Hampton by Hilton Edinburgh Airport 享用早餐，最後整理行李與確認護照、登機證與液體分裝。'],
+            ['✈️ 愛丁堡機場報到','從飯店步行約 5–8 分鐘即可抵達 Edinburgh Airport 航廈。預計 08:20 Check-out 後步行前往機場，並預留托運與安檢時間。'],
+            ['🇦🇹 奧地利航空 OS346','搭乘 Austrian Airlines OS346 航班，10:45 自愛丁堡起飛，14:20 抵達維也納（Vienna International Airport）。'],
+            ['☀️ 下一站：維也納','正式結束英國與蘇格蘭篇章，接下來將展開維也納與中歐夏日旅行。']
+          ],
+          tips:'<strong>航班資訊：</strong><br>Austrian Airlines OS346<br>Edinburgh (EDI) 10:45 → Vienna (VIE) 14:20',
+          highlights:[
+            ['Edinburgh Airport','結束蘇格蘭旅程，準備飛往下一站維也納。', img('Edinburgh Airport morning')],
+            ['Austrian Airlines','奧地利航空為奧地利國籍航空公司，也是星空聯盟成員。', img('Austrian Airlines aircraft')],
+            ['Vienna','下一站將抵達維也納，展開中歐夏日旅行。', img('Vienna Austria summer')]
+          ],
+          meals:[['早餐','飯店早餐','Hampton by Hilton Edinburgh Airport。'],['午餐','機上或機場簡單吃','依航班與轉移時間安排。'],['晚餐','維也納','抵達後自由安排。']],
+          hotel:{ name:'維也納小舅家', desc:'抵達維也納後入住親友家中，稍作休息並展開下一段旅程。' }
+        });
+        return;
+      }
+
+      days.push({
+        id:d[0], tab:d[1], date:d[2], title:d[3], hero:img(d[5]), intro:d[4],
+        routes:[['行程安排','此日詳細行程可於下一版依 Google Sheet C 欄補入。']],
+        tips:'',
+        highlights:[],
+        meals:[['早餐','簡單解決',''],['午餐','依行程安排',''],['晚餐','依行程安排','']],
+        hotel:index < 2 ? hotels.london : index < 4 ? hotels.edinburgh : index < 6 ? hotels.skye : hotels.airport
+      });
+    });
+
+    function el(tag, className, html){
+      const node = document.createElement(tag);
+      if(className) node.className = className;
+      if(html) node.innerHTML = html;
+      return node;
+    }
+
+    function renderNav(){
+      const nav = document.getElementById('dayNav');
+      nav.innerHTML = '';
+      days.forEach(function(day, index){
+        const a = el('a', 'day-tab' + (index === 0 ? ' active' : ''), day.tab);
+        a.href = '#';
+        a.onclick = function(event){ switchDay(event, day.id); };
+        nav.appendChild(a);
+      });
+    }
+
+    function renderRoutes(container, day){
+      const section = el('section');
+      section.appendChild(el('h3', 'section-title', '<i class="fa-solid fa-route"></i> 行程安排'));
+      const list = el('div', 'route-list');
+      const routes = day.options ? day.options[0].routes : day.routes;
+      routes.forEach(function(r){
+        list.appendChild(el('article', 'route-card', '<div class="route-title"><h3>' + r[0] + '</h3></div><p>' + r[1] + '</p>'));
+      });
+      section.appendChild(list);
+      container.appendChild(section);
+    }
+
+    function renderOptions(container, day){
+      if(!day.options){ renderRoutes(container, day); return; }
+      const section = el('section');
+      section.appendChild(el('h3', 'section-title', '<i class="fa-solid fa-route"></i> 行程安排'));
+      const switcher = el('div', 'option-switcher');
+      const groups = [];
+      day.options.forEach(function(option, index){
+        const btn = el('button', 'option-btn' + (index === 0 ? ' active' : ''), option.name);
+        btn.onclick = function(){
+          switcher.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+          groups.forEach(g => g.classList.remove('active'));
+          btn.classList.add('active');
+          groups[index].classList.add('active');
+        };
+        switcher.appendChild(btn);
+      });
+      section.appendChild(switcher);
+      day.options.forEach(function(option, index){
+        const group = el('div', 'route-group' + (index === 0 ? ' active' : ''));
+        const list = el('div', 'route-list');
+        option.routes.forEach(function(r){
+          list.appendChild(el('article', 'route-card', '<div class="route-title"><h3>' + r[0] + '</h3></div><p>' + r[1] + '</p>'));
+        });
+        group.appendChild(list);
+        if(option.highlights && option.highlights.length){ renderHighlights(group, option.highlights); }
+        if(option.meals && option.meals.length){ renderMeals(group, option.meals); }
+        groups.push(group);
+        section.appendChild(group);
+      });
+      container.appendChild(section);
+    }
+
+    function renderHighlights(container, spots){
+      if(!spots || spots.length === 0) return;
+      const section = el('section', 'highlight-section');
+      section.appendChild(el('h3', 'section-title', '<i class="fa-solid fa-camera-retro"></i> 今日風景'));
+      const grid = el('div', 'highlight-grid');
+      spots.forEach(function(s){
+        grid.appendChild(el('article', 'spot-card', '<img loading="lazy" src="' + s[2] + '" alt="' + s[0] + '"><div class="spot-body"><h4>' + s[0] + '</h4><p>' + s[1] + '</p></div>'));
+      });
+      section.appendChild(grid);
+      container.appendChild(section);
+    }
+
+    function renderTips(container, day){
+      if(!day.tips && !day.guideLink) return;
+      let html = day.tips || '';
+      if(day.guideLink){
+        html += '<br><a class="guide-link" href="' + day.guideLink + '" target="_top" rel="noopener"><i class="fa-solid fa-file-lines"></i> 機場搭地鐵到市區圖文教學</a>';
+        html += '<span class="guide-url">若按鈕無法開啟，請複製此連結：<br>' + day.guideLink + '</span>';
+      }
+      container.appendChild(el('section', '', '<div class="tips-card">' + html + '</div>'));
+    }
+
+    function renderMeals(container, meals){
+      const section = el('section');
+      section.appendChild(el('h3', 'section-title', '<i class="fa-solid fa-utensils"></i> 餐食安排'));
+      const card = el('div', 'meal-card');
+      const grid = el('div', 'meal-grid');
+      meals.forEach(function(m){
+        grid.appendChild(el('div', 'meal-row', '<div class="meal-label">' + m[0] + '</div><div><div class="meal-place">' + m[1] + '</div><div class="meal-note">' + m[2] + '</div></div>'));
+      });
+      card.appendChild(grid);
+      section.appendChild(card);
+      container.appendChild(section);
+    }
+
+    function renderHotel(container, hotel){
+      container.appendChild(el('section', '', '<div class="hotel-card"><h3><i class="fa-solid fa-hotel"></i> 今日住宿</h3><p><strong>' + hotel.name + '</strong><br>' + hotel.desc + '</p></div>'));
+    }
+
+    function renderSimpleTable(headers, rows){
+      let html = '<div class="simple-table-wrap"><table class="simple-table"><thead><tr>';
+      headers.forEach(function(h){ html += '<th>' + h + '</th>'; });
+      html += '</tr></thead><tbody>';
+      rows.forEach(function(row){
+        html += '<tr>';
+        row.forEach(function(cell){ html += '<td>' + cell + '</td>'; });
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+      return html;
+    }
+
+    function renderInfoPage(day, index){
+      const wrapper = el('div', 'day-content' + (index === 0 ? ' active' : ''));
+      wrapper.id = day.id;
+      wrapper.appendChild(el('section', 'hero', '<div class="hero-body"><div class="eyebrow">' + day.date + '</div><h2>' + day.title + '</h2><p class="intro">' + day.intro + '</p></div>'));
+
+      if(day.id === 'transport'){
+        const transportRows = [
+          ['阿姨抵達倫敦','6/3','SQ308 → London Heathrow T2','15:45 抵達'],
+          ['媽媽抵達倫敦','6/3','CI0081 → London Heathrow T3','16:30 抵達'],
+          ['我：維也納→倫敦','6/3','OS331 VIE → LDN','06:50–08:20'],
+          ['倫敦→劍橋火車','6/6','King’s Cross → Cambridge','09:24–10:14 / 16:12–17:02'],
+          ['倫敦→愛丁堡火車','6/8','King’s Cross → Edinburgh Waverley','09:30–13:38'],
+          ['高地三日團','6/10–6/12','Rabbie’s Isle of Skye 3-day tour','6/10 08:15 集合；6/12 約 19:30 回愛丁堡'],
+          ['愛丁堡→維也納','6/13','OS346 EDI → VIE','10:45–14:20'],
+          ['台北↔維也納','5/26、6/17','TPE–VIE / VIE–TPE','22:40–08:40 / 16:00–13:25']
+        ];
+        const hotelRows = [
+          ['倫敦','6/3–6/8','Templeton Place Aparthotel','17 Templeton Place, London SW5 9NB'],
+          ['愛丁堡','6/8–6/10','Roomzzz Edinburgh','Saint James Quarter, Leith St, Edinburgh EH1 3AD, United Kingdom'],
+          ['天空島/高地','6/10–6/12','Sgurr Alasdair B&B En-Suite','Viewfield Road IV51 9ES'],
+          ['愛丁堡機場','6/12–6/13','Hampton by Hilton Edinburgh Airport','5 Almond Ave, Ingliston, Edinburgh, Newbridge EH12 9GN, United Kingdom']
+        ];
+        wrapper.appendChild(el('section', 'simple-page', '<h3 class="section-title"><i class="fa-solid fa-plane"></i> 主要航班與交通</h3>' + renderSimpleTable(['類別','日期','路線 / 項目','時間'], transportRows) + '<h3 class="section-title"><i class="fa-solid fa-hotel"></i> 住宿資訊</h3>' + renderSimpleTable(['城市','日期','住宿','地址 / 區域'], hotelRows)));
+        return wrapper;
+      }
+
+      if(day.id === 'customs'){
+        const customsRows = [
+          ['What is the purpose of your visit?','We are visiting the UK for tourism.','旅遊觀光'],
+          ['How long will you stay in the UK?','We will stay in the UK from 3 June to 13 June.','6/3–6/13 在英國'],
+          ['Where will you stay?','We will stay at Templeton Place Aparthotel in London, then Roomzzz Edinburgh and a hotel near Edinburgh Airport.','可出示飯店訂房資料'],
+          ['What will you do in the UK?','We will visit London, Cambridge, Edinburgh, and join a three-day Highlands tour.','倫敦、劍橋、愛丁堡、高地團'],
+          ['Who are you travelling with?','I am travelling with my mother and aunt.','與媽媽和阿姨同行'],
+          ['Do you have a return or onward ticket?','Yes. We will fly from Edinburgh to Vienna on 13 June, and later return to Taiwan.','可出示 EDI → VIE 航班與回台機票'],
+          ['Do you have travel insurance?','Yes, we have travel insurance.','建議存在手機並可離線查看']
+        ];
+        wrapper.appendChild(el('section', 'simple-page', '<h3 class="section-title"><i class="fa-solid fa-passport"></i> 海關常見問答</h3>' + renderSimpleTable(['問題','建議英文回答','中文提示'], customsRows) + '<div class="simple-note"><strong>小提醒：</strong><br>海關通常不會問太多問題，保持自然回答即可。若聽不清楚，可以禮貌請對方再說一次：<br><br>“Sorry, could you say that again?”</div>'));
+        return wrapper;
+      }
+
+      return wrapper;
+    }
+
+    function renderDay(day, index){
+      if(day.id === 'transport' || day.id === 'customs') return renderInfoPage(day, index);
+      const wrapper = el('div', 'day-content' + (index === 0 ? ' active' : ''));
+      wrapper.id = day.id;
+      wrapper.appendChild(el('section', 'hero', '<img class="hero-img" loading="lazy" src="' + day.hero + '" alt="' + day.title + '"><div class="hero-body"><div class="eyebrow">' + day.date + '</div><h2>' + day.title + '</h2><p class="intro">' + day.intro + '</p></div>'));
+      renderOptions(wrapper, day);
+      if(day.highlights && day.highlights.length){ renderHighlights(wrapper, day.highlights); }
+      renderTips(wrapper, day);
+      if(day.meals && day.meals.length){ renderMeals(wrapper, day.meals); }
+      renderHotel(wrapper, day.hotel);
+      return wrapper;
+    }
+
+    function renderApp(){
+      renderNav();
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+      days.forEach(function(day, index){ app.appendChild(renderDay(day, index)); });
+    }
+
+    function switchDay(event, dayId){
+      event.preventDefault();
+      document.querySelectorAll('.day-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.day-tab').forEach(el => el.classList.remove('active'));
+      document.getElementById(dayId).classList.add('active');
+      event.currentTarget.classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    renderApp();
+  </script>
+</body>
+</html>
