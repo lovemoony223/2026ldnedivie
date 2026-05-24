@@ -297,6 +297,38 @@
       box-shadow:0 6px 16px rgba(23,35,61,.06);
       margin-bottom:16px;
     }
+
+    .customs-list {
+      display:grid;
+      gap:12px;
+    }
+    .customs-card {
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      background:#fff;
+    }
+    .customs-q {
+      color:var(--navy);
+      font-weight:900;
+      font-size:.96rem;
+      line-height:1.45;
+      margin-bottom:10px;
+    }
+    .customs-en {
+      background:var(--sky);
+      border-radius:12px;
+      padding:11px 12px;
+      color:#24476f;
+      font-size:.92rem;
+      line-height:1.65;
+      margin-bottom:10px;
+    }
+    .customs-zh {
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.55;
+    }
     .simple-table {
       width:100%;
       border-collapse:collapse;
@@ -895,7 +927,18 @@
           ['Do you have a return or onward ticket?','Yes. We will fly from Edinburgh to Vienna on 13 June, and later return to Taiwan.','可出示 EDI → VIE 航班與回台機票'],
           ['Do you have travel insurance?','Yes, we have travel insurance.','建議存在手機並可離線查看']
         ];
-        wrapper.appendChild(el('section', 'simple-page', '<h3 class="section-title"><i class="fa-solid fa-passport"></i> 海關常見問答</h3>' + renderSimpleTable(['問題','建議英文回答','中文提示'], customsRows) + '<div class="simple-note"><strong>小提醒：</strong><br>海關通常不會問太多問題，保持自然回答即可。若聽不清楚，可以禮貌請對方再說一次：<br><br>“Sorry, could you say that again?”</div>'));
+
+        let customsHtml = '<div class="customs-list">';
+        customsRows.forEach(function(row){
+          customsHtml += '<div class="customs-card">';
+          customsHtml += '<div class="customs-q">' + row[0] + '</div>';
+          customsHtml += '<div class="customs-en">' + row[1] + '</div>';
+          customsHtml += '<div class="customs-zh">💡 ' + row[2] + '</div>';
+          customsHtml += '</div>';
+        });
+        customsHtml += '</div>';
+
+        wrapper.appendChild(el('section', 'simple-page', '<h3 class="section-title"><i class="fa-solid fa-passport"></i> 海關常見問答</h3>' + customsHtml + '<div class="simple-note"><strong>小提醒：</strong><br>海關通常不會問太多問題，保持自然回答即可。若聽不清楚，可以禮貌請對方再說一次：<br><br>“Sorry, could you say that again?”</div>'));
         return wrapper;
       }
 
